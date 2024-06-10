@@ -43,4 +43,14 @@ vector<vector<double>> GetValues();
 double getTotalCost(vector<int>buyPrice,vector<vector<int>> Tactic,vector<vector<double>> originalRef);
 
 double getTransportCost(vector<vector<double>> values,vector<vector<int>> Tactic);
+
+
+
+
+
+std::wstring StringToWString(const std::string& str);
+
+void ShowMessageBox(const std::string& message, const std::string& title);
+
+
 #endif

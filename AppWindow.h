@@ -28,13 +28,11 @@ __published:	// IDE-managed Components
 	TLabel *Label2;
 	TLabel *Label3;
 	TLabel *Label4;
-	TButton *Button_Test;
 	TMemo *Memo1;
 	void __fastcall Button_RemSupplierClick(TObject *Sender);
 	void __fastcall Button_AddSuplierClick(TObject *Sender);
 	void __fastcall Button_AddCustomerClick(TObject *Sender);
 	void __fastcall Button_RemCustomerClick(TObject *Sender);
-	void __fastcall Button_TestClick(TObject *Sender);
 	void __fastcall Button_CalculateClick(TObject *Sender);
 private:	// User declarations
 public:		// User declarations

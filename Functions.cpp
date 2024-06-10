@@ -267,7 +267,6 @@ void ClearLastColumn()
 vector<int> GetDemand()
 {
 	vector<int> demand;
-
     for (TEdit* edit : CustomerControls)
     {
         if (edit != nullptr)
@@ -277,14 +276,12 @@ vector<int> GetDemand()
             demand.push_back(value);
         }
 	}
-
     return demand;
 }
 //GetPodaz
 vector<int> GetSupply()
 {
 	vector<int> supply;
-
 	for (TEdit* edit : SupplyControls)
     {
         if (edit != nullptr)
@@ -294,13 +291,11 @@ vector<int> GetSupply()
 			supply.push_back(value);
         }
 	}
-
 	return supply;
 }
 vector<int> GetPurchase()
 {
 	vector<int> purchase;
-
     for (TEdit* edit : PurchaseControls)
     {
         if (edit != nullptr)
@@ -310,13 +305,11 @@ vector<int> GetPurchase()
 			purchase.push_back(value);
         }
     }
-
     return purchase;
 }
 vector<int> GetSelling()
 {
 	vector<int> selling;
-
     for (TEdit* edit : SellingControls)
     {
         if (edit != nullptr)
@@ -326,13 +319,11 @@ vector<int> GetSelling()
             selling.push_back(value);
         }
     }
-
     return selling;
 }
 vector<vector<double>> GetValues()
 {
 	vector<vector<double>> vals;
-
     for (int i = 0; i < Values.size(); ++i)
     {
 		vector<double> rowValues;
@@ -347,7 +338,6 @@ vector<vector<double>> GetValues()
         }
 		vals.push_back(rowValues);
     }
-
 	return vals;
 }
 vector<vector<double>> calcUnitProfit(vector<int>sellPrice,vector<int>buyPrice,vector<vector<double>> unitCost)
@@ -383,5 +373,22 @@ double getTransportCost(vector<vector<double>> values,vector<vector<int>> Tactic
 				tempCost+=values[i][k]*Tactic[i][k];
 	return tempCost;
 }
+
+std::wstring StringToWString(const std::string& str) {
+	std::wstring wstr(str.begin(), str.end());
+	return wstr;
+}
+
+void ShowMessageBox(const std::string& message, const std::string& title) {
+	// Convert std::string to std::wstring
+	std::wstring wMessage = StringToWString(message);
+	std::wstring wTitle = StringToWString(title);
+	// Display the message box with OK button
+	MessageBoxW(NULL, wMessage.c_str(), wTitle.c_str(), MB_OK | MB_ICONINFORMATION);
+}
+
+
+
+
 
 #pragma package(smart_init)

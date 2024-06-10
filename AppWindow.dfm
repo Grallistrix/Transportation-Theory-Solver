@@ -149,15 +149,6 @@ object Form1: TForm1
     TabOrder = 12
     OnClick = Button_RemCustomerClick
   end
-  object Button_Test: TButton
-    Left = 792
-    Top = 767
-    Width = 75
-    Height = 25
-    Caption = 'TEST'
-    TabOrder = 13
-    OnClick = Button_TestClick
-  end
   object Memo1: TMemo
     Left = 104
     Top = 674
@@ -165,6 +156,6 @@ object Form1: TForm1
     Height = 126
     Lines.Strings = (
       'Memo1')
-    TabOrder = 14
+    TabOrder = 13
   end
 end
