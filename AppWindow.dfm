@@ -2,8 +2,8 @@ object Form1: TForm1
   Left = 225
   Top = 21
   Caption = 'Form1'
-  ClientHeight = 800
-  ClientWidth = 1500
+  ClientHeight = 799
+  ClientWidth = 1496
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -15,9 +15,9 @@ object Form1: TForm1
   object Label1: TLabel
     Left = 546
     Top = 8
-    Width = 57
+    Width = 113
     Height = 15
-    Caption = 'Customers'
+    Caption = 'Customers / Demand'
   end
   object Label2: TLabel
     Left = 568
@@ -29,9 +29,9 @@ object Form1: TForm1
   object Label3: TLabel
     Left = 8
     Top = 276
-    Width = 48
+    Width = 87
     Height = 15
-    Caption = 'Suppliers'
+    Caption = 'Suppliers Supply'
   end
   object Label4: TLabel
     Left = 1424
@@ -64,7 +64,7 @@ object Form1: TForm1
     Width = 70
     Height = 23
     TabOrder = 2
-    Text = 'Edit_Customer1'
+    Text = 'Customer 1'
   end
   object Edit_Customer2: TEdit
     Left = 680
@@ -72,7 +72,7 @@ object Form1: TForm1
     Width = 70
     Height = 23
     TabOrder = 3
-    Text = 'Edit_Customer1'
+    Text = 'Customer 2'
   end
   object Edit_Supply1: TEdit
     Left = 112
@@ -80,7 +80,7 @@ object Form1: TForm1
     Width = 70
     Height = 23
     TabOrder = 4
-    Text = 'Edit_Supply1'
+    Text = 'Supplier 1'
   end
   object Edit_Supply2: TEdit
     Left = 112
@@ -88,7 +88,7 @@ object Form1: TForm1
     Width = 70
     Height = 23
     TabOrder = 5
-    Text = 'Edit_Supply2'
+    Text = 'Supplier 2'
   end
   object Edit_Purchase1: TEdit
     Left = 952
@@ -96,7 +96,7 @@ object Form1: TForm1
     Width = 70
     Height = 23
     TabOrder = 6
-    Text = 'Edit_Purchase1'
+    Text = 'Buy Price 1'
   end
   object Edit_Purchase2: TEdit
     Left = 952
@@ -104,7 +104,7 @@ object Form1: TForm1
     Width = 70
     Height = 23
     TabOrder = 7
-    Text = 'Edit_Purchase2'
+    Text = 'Buy Price 2'
   end
   object Edit_Selling1: TEdit
     Left = 344
@@ -112,7 +112,7 @@ object Form1: TForm1
     Width = 70
     Height = 23
     TabOrder = 8
-    Text = 'Edit1'
+    Text = 'Sell Price 1'
   end
   object Edit_Selling2: TEdit
     Left = 680
@@ -120,11 +120,11 @@ object Form1: TForm1
     Width = 70
     Height = 23
     TabOrder = 9
-    Text = 'Edit1'
+    Text = 'Sell Price 2'
   end
   object Button_Calculate: TButton
     Left = 568
-    Top = 760
+    Top = 759
     Width = 113
     Height = 41
     Caption = 'Calculate'
@@ -157,5 +157,14 @@ object Form1: TForm1
     Caption = 'TEST'
     TabOrder = 13
     OnClick = Button_TestClick
+  end
+  object Memo1: TMemo
+    Left = 104
+    Top = 674
+    Width = 161
+    Height = 126
+    Lines.Strings = (
+      'Memo1')
+    TabOrder = 14
   end
 end

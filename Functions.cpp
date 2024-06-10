@@ -9,10 +9,11 @@ extern vector<TEdit*> CustomerControls;
 extern vector<TEdit*> SupplyControls;
 extern vector<TEdit*> PurchaseControls;
 extern vector<TEdit*> SellingControls;
+extern vector<vector<TEdit*>> Values;
 
 #define TEDIT_WIDTH 70
 #define TEDIT_HEIGHT 20
-//---------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------------------------------------------
 void DistributeCustomers(){
 
 	int formWidth = 1500;
@@ -34,7 +35,7 @@ void DistributeCustomers(){
 }
 
 void DistributeSupply(){
-    int xPosition = 50; // Horizontal position for the column
+	int xPosition = 50; // Horizontal position for the column
     int edgeSpacing = 100; // Spacing from each edge
 	int startY = edgeSpacing; // Starting vertical position
 	int formHeight = 800;
@@ -55,7 +56,6 @@ void DistributeSupply(){
         currentY += SupplyControls[i]->Height + spacing;
 	}
 }
-
 void DistributePurchase(){
 	int xPosition = 1500-140; // Horizontal position for the column
     int edgeSpacing = 100; // Spacing from each edge
@@ -78,7 +78,6 @@ void DistributePurchase(){
 		currentY += PurchaseControls[i]->Height + spacing;
 	}
 }
-
 void DistributeSelling(){
 
 	int formWidth = 1500;
@@ -98,15 +97,36 @@ void DistributeSelling(){
 			currentX += EDIT_WIDTH + spacing;                     //Modify future X_cord for next
 	}
 }
-
-void DistributeAll(){
+void DistributeHandles(){
 	DistributeCustomers();
 	DistributeSupply();
 	DistributePurchase();
 	DistributeSelling();
 }
+void DistributeValues()
+{
+	// Iterate over suppliers
+	for (int supplyID = 0; supplyID < Values.size(); supplyID++)
+	{
+		// Iterate over customers
+        for (int customerID = 0; customerID < Values[supplyID].size(); customerID++)
+		{
+			// Make sure there's actually a TEdit
+			if (Values[supplyID][customerID] != nullptr)
+			{
+				// Get intersection position
+                int xPosition = CustomerControls[customerID]->Left;
+                int yPosition = SupplyControls[supplyID]->Top;
 
-
+				// Update position
+				TEdit *edit = Values[supplyID][customerID];
+                edit->Left = xPosition;
+                edit->Top = yPosition;
+            }
+        }
+	}
+}
+//------------------------------------------------------------------------------------------------------------------------------------------------------
 void addTEdit(TForm *parentForm, vector<TEdit*> &WantedVector){
 	TEdit *newEdit = new TEdit(parentForm);
 	newEdit->Parent = parentForm; // Set the form as the parent
@@ -115,7 +135,6 @@ void addTEdit(TForm *parentForm, vector<TEdit*> &WantedVector){
 	newEdit->Text = WantedVector.size();
 	WantedVector.push_back(newEdit);
 }
-
 void RemoveLastEdit(vector<TEdit*> &WantedVector)
 {
 	if (WantedVector.size()>2)
@@ -125,7 +144,244 @@ void RemoveLastEdit(vector<TEdit*> &WantedVector)
 		delete lastEdit;    //Free memory
     }
 }
+void AddColumn(TForm *parentForm)
+{
+    int numRows = Values.size();
+    int newColumnIndex = Values[0].size(); // Index of the new column
+    // Iterate over each row and add a new TEdit at the end
+    for (int row = 0; row < numRows; ++row)
+    {
+        // Create a new TEdit
+        TEdit *newEdit = new TEdit(parentForm);
+        newEdit->Parent = parentForm;
+        // Set position based on existing TEdit in the same row
+		int xPosition = CustomerControls[newColumnIndex]->Left;
+        int yPosition = SupplyControls[row]->Top;
+        newEdit->Left = xPosition;
+        newEdit->Top = yPosition;
+        newEdit->Width = CustomerControls[newColumnIndex]->Width;
+        newEdit->Height = CustomerControls[newColumnIndex]->Height;
+	   //	newEdit->NumbersOnly = true;
+		// Set the text of the new TEdit
+		newEdit->Text = IntToStr(row) + IntToStr(newColumnIndex);
+        // Add the new TEdit to the Values vector
+        Values[row].push_back(newEdit);
+    }
+}
+void AddRow(TForm *parentForm)
+{
+    int numRows = Values.size(); // Number of existing rows
+    int numColumns = CustomerControls.size(); // Number of columns
+    // Add a new row to Values
+    Values.push_back(std::vector<TEdit*>());
+    // Iterate over each column and add a new TEdit to the new row
+    for (int column = 0; column < numColumns; ++column)
+    {
+        // Create a new TEdit
+		TEdit *newEdit = new TEdit(parentForm);
+        newEdit->Parent = parentForm;
+        // Set position based on existing TEdit in the same column
+        int xPosition = CustomerControls[column]->Left;
+        int yPosition = SupplyControls[numRows]->Top;
+		newEdit->Left = xPosition;
+        newEdit->Top = yPosition;
+        newEdit->Width = CustomerControls[column]->Width;
+        newEdit->Height = CustomerControls[column]->Height;
+		//newEdit->NumbersOnly = true;
+        // Set the text of the new TEdit
+		newEdit->Text = IntToStr(numRows)  + IntToStr(column);
+        // Add the new TEdit to the new row
+        Values[numRows].push_back(newEdit);
+    }
+}
+void InitiateValues(TForm *parentForm)
+{
+    // Resize the Values vector to fit the supply and customer controls
+    Values.resize(SupplyControls.size());
+
+	// Iterate over each suppliers
+    for (int supplyID = 0; supplyID < SupplyControls.size(); supplyID++)
+    {
+		// Resize inner vector for each supply control
+        Values[supplyID].resize(CustomerControls.size());
+
+		// Iterate over each customer
+        for (int customerID = 0; customerID < CustomerControls.size(); customerID++)
+        {
+			// Get intersection position
+			int xPosition = CustomerControls[customerID]->Left;
+            int yPosition = SupplyControls[supplyID]->Top;
+
+			// Create new TEdit
+            TEdit *newEdit = new TEdit(parentForm);
+            newEdit->Parent = parentForm;
+            newEdit->Left = xPosition;
+            newEdit->Top = yPosition;
+            newEdit->Width = CustomerControls[customerID]->Width;
+            newEdit->Height = CustomerControls[customerID]->Height;
+			String abc = IntToStr(supplyID) + IntToStr(customerID);
+			newEdit->Text = abc;
+
+		   //	newEdit->NumbersOnly = true;
 
 
+			// Store new TEdit in Values vector
+            Values[supplyID][customerID] = newEdit;
+        }
+    }
+}
+void DeleteTEdit(int row, int column)
+{
+    if (row >= 0 && row < Values.size() && column >= 0 && column < Values[row].size())
+	{
+		delete Values[row][column]; // Delete the TEdit object
+		Values[row][column] = nullptr; // Set the pointer to nullptr
+	}
+}
+void ClearLastRow()
+{
+	// Iterate over each TEdit in the last row
+    for (int column = 0; column < Values.back().size(); ++column)
+    {
+		DeleteTEdit(Values.size() - 1, column); // Delete TEdit
+    }
+	// Resize Values to remove the last row
+	Values.resize(Values.size() - 1);
+}
+void ClearLastColumn()
+{
+	// Iterate over each row
+    for (int row = 0; row < Values.size(); ++row)
+    {
+        // If there is at least one TEdit in the current row
+        if (!Values[row].empty())
+        {
+			DeleteTEdit(row, Values[row].size() - 1); // Delete the last TEdit in the current row
+            Values[row].resize(Values[row].size() - 1); // Resize the current row to remove the last column
+        }
+    }
+
+}
+//------------------------------------------------------------------------------------------------------------------------------------------------------
+ //GetPopyt
+vector<int> GetDemand()
+{
+	vector<int> demand;
+
+    for (TEdit* edit : CustomerControls)
+    {
+        if (edit != nullptr)
+        {
+			// Convert the text of the TEdit to an integer
+			int value = edit->Text.ToInt();
+            demand.push_back(value);
+        }
+	}
+
+    return demand;
+}
+//GetPodaz
+vector<int> GetSupply()
+{
+	vector<int> supply;
+
+	for (TEdit* edit : SupplyControls)
+    {
+        if (edit != nullptr)
+        {
+            // Convert the text of the TEdit to an integer
+			int value = edit->Text.ToInt();
+			supply.push_back(value);
+        }
+	}
+
+	return supply;
+}
+vector<int> GetPurchase()
+{
+	vector<int> purchase;
+
+    for (TEdit* edit : PurchaseControls)
+    {
+        if (edit != nullptr)
+        {
+            // Convert the text of the TEdit to an integer
+			int value = edit->Text.ToInt();
+			purchase.push_back(value);
+        }
+    }
+
+    return purchase;
+}
+vector<int> GetSelling()
+{
+	vector<int> selling;
+
+    for (TEdit* edit : SellingControls)
+    {
+        if (edit != nullptr)
+        {
+			// Convert the text of the TEdit to an integer
+			int value = edit->Text.ToInt();
+            selling.push_back(value);
+        }
+    }
+
+    return selling;
+}
+vector<vector<double>> GetValues()
+{
+	vector<vector<double>> vals;
+
+    for (int i = 0; i < Values.size(); ++i)
+    {
+		vector<double> rowValues;
+        for (int j = 0; j < Values[i].size(); ++j)
+        {
+            if (Values[i][j] != nullptr)
+            {
+				// Convert the text of the TEdit to a double
+                double value = StrToFloatDef(Values[i][j]->Text, 0.0);
+                rowValues.push_back(value);
+            }
+        }
+		vals.push_back(rowValues);
+    }
+
+	return vals;
+}
+vector<vector<double>> calcUnitProfit(vector<int>sellPrice,vector<int>buyPrice,vector<vector<double>> unitCost)
+{
+	//inicialize variables
+	vector<double>tempVec;
+	for(int k=0;k<buyPrice.size();k++)
+		tempVec.push_back(0);
+	vector<vector<double>> tempMat;
+	for(int i=0;i<sellPrice.size();i++)
+		tempMat.push_back(tempVec);
+		//Fill with unit profit: Prof = SellPrice - BuyPrice - Transport
+	for(int k=0;k<buyPrice.size();k++)
+		for(int i=0;i<sellPrice.size();i++)
+			tempMat[i][k]=sellPrice[i]-buyPrice[k]-unitCost[i][k];
+			return tempMat;
+}
+
+double getTotalCost(vector<int>buyPrice,vector<vector<int>> Tactic,vector<vector<double>> originalRef)
+{
+    double tempCost=0;
+    for(int k=0;k<originalRef[0].size();k++)
+        for(int i=0;i<buyPrice.size();i++)
+			tempCost+=buyPrice[i]*Tactic[i][k];
+    return tempCost;
+}
+
+double getTransportCost(vector<vector<double>> values,vector<vector<int>> Tactic)
+{
+	double tempCost=0;
+	for(int k=0;k<values[0].size();k++)
+			for(int i=0;i<values.size();i++)
+				tempCost+=values[i][k]*Tactic[i][k];
+	return tempCost;
+}
 
 #pragma package(smart_init)
