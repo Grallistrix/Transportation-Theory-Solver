@@ -38,18 +38,10 @@ vector<int> GetSupply(); //GetPodaz
 vector<int> GetPurchase();
 vector<int> GetSelling();
 vector<vector<double>> GetValues();
- vector<vector<double>> calcUnitProfit(vector<int>sellPrice,vector<int>buyPrice,vector<vector<double>> unitCost);
-
+vector<vector<double>> calcUnitProfit(vector<int>sellPrice,vector<int>buyPrice,vector<vector<double>> unitCost);
 double getTotalCost(vector<int>buyPrice,vector<vector<int>> Tactic,vector<vector<double>> originalRef);
-
 double getTransportCost(vector<vector<double>> values,vector<vector<int>> Tactic);
-
-
-
-
-
 std::wstring StringToWString(const std::string& str);
-
 void ShowMessageBox(const std::string& message, const std::string& title);
 
 

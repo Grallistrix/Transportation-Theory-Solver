@@ -156,7 +156,6 @@ int MiddleManAlgorithm::compressTactic(bool control)
 		else last = -9999;
 
 		do {
-
 			//if (control == !bool(last))return counter;//check if next found delta is 0 or in conjuction with argument
 
 			if (control) {
@@ -165,7 +164,6 @@ int MiddleManAlgorithm::compressTactic(bool control)
 			else{
 				if (last >= 0)return 1;
 			}
-
 			if (control)delta_pos = findPositiveDelta(last);//find delta closer to zero than last
 			else delta_pos = findNegativeDelta(last);
 			//znajdü element ukoúny
@@ -188,8 +186,6 @@ int MiddleManAlgorithm::compressTactic(bool control)
 		Tactic[delta_pos.first][delta_pos.second]+=difference;
 		Tactic[cross_pos.first][cross_pos.second]+=difference;
 		//Go to Flag1
-
-
 	return 1;
 }
 

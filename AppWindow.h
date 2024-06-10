@@ -29,6 +29,7 @@ __published:	// IDE-managed Components
 	TLabel *Label3;
 	TLabel *Label4;
 	TMemo *Memo1;
+	TCheckBox *CheckBox1;
 	void __fastcall Button_RemSupplierClick(TObject *Sender);
 	void __fastcall Button_AddSuplierClick(TObject *Sender);
 	void __fastcall Button_AddCustomerClick(TObject *Sender);

@@ -250,14 +250,14 @@ void ClearLastRow()
 }
 void ClearLastColumn()
 {
-	// Iterate over each row
+	// Iterate over rows
     for (int row = 0; row < Values.size(); ++row)
     {
-        // If there is at least one TEdit in the current row
+		// If there is at least one TEdit in current row
         if (!Values[row].empty())
         {
-			DeleteTEdit(row, Values[row].size() - 1); // Delete the last TEdit in the current row
-            Values[row].resize(Values[row].size() - 1); // Resize the current row to remove the last column
+			DeleteTEdit(row, Values[row].size() - 1); // Delete last TEdit in current row
+			Values[row].resize(Values[row].size() - 1); // Resize to remove the last column
         }
     }
 

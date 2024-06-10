@@ -2,8 +2,8 @@ object Form1: TForm1
   Left = 225
   Top = 21
   Caption = 'Form1'
-  ClientHeight = 799
-  ClientWidth = 1496
+  ClientHeight = 798
+  ClientWidth = 1492
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -157,5 +157,13 @@ object Form1: TForm1
     Lines.Strings = (
       'Memo1')
     TabOrder = 13
+  end
+  object CheckBox1: TCheckBox
+    Left = 264
+    Top = 784
+    Width = 97
+    Height = 17
+    Caption = 'Transport?'
+    TabOrder = 14
   end
 end

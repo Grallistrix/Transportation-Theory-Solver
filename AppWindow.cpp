@@ -47,6 +47,8 @@ __fastcall TForm1::TForm1(TComponent* Owner)
 
 	 InitiateValues(this);
 
+     Memo1->Text = "Infobox";
+
 }
 
 void __fastcall TForm1::Button_RemSupplierClick(TObject *Sender)
@@ -101,9 +103,6 @@ void __fastcall TForm1::Button_RemCustomerClick(TObject *Sender)
 	ClearLastColumn();
 	DistributeValues();
 }
-
-
-
 
 template <typename T>
 vector<vector<T>> InvertVector(const vector<vector<T>>& input)
@@ -188,7 +187,7 @@ void __fastcall TForm1::Button_CalculateClick(TObject *Sender)
 	*/
 
 	// Use the Algorithm to calculate needed stuff
-	bool control = true;
+	bool control = !CheckBox1->Checked;
 	vector<vector<double>> UnitProfits = calcUnitProfit(selling,purchase,values);
 	MiddleManAlgorithm calc(supply, demand, UnitProfits, control);
 	calc.optimize(control);
@@ -242,4 +241,5 @@ void __fastcall TForm1::Button_CalculateClick(TObject *Sender)
   ShowMessageBox(VectorToString(tempTactic), "Optimal Transport");
 }
 //---------------------------------------------------------------------------
+
 
